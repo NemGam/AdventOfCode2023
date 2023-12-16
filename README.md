@@ -3,4 +3,4 @@
 
 This is the repository with my solutions to these incredible puzzles. Feel free to copy and/or modify them!
 
-(To get the input for puzzles, please go to the [**Advent of Code's website**](https://adventofcode.com))
+(To get the input for puzzles, please visit the [**Advent of Code's website**](https://adventofcode.com))
