@@ -1,4 +1,3 @@
-import time
 def get_direction_from_symbol(symbol : str, dir):
     if symbol == '|' or symbol == '-':
         return dir
@@ -40,6 +39,7 @@ def get_start_direction(start, grid):
 f = open("./input.txt")
 
 grid = [list(line.strip()) for line in f.readlines()] #(y, x)
+f.close()
 start = ()
 #Find coordinates of the Start
 for i in range(len(grid)):
@@ -50,6 +50,7 @@ for i in range(len(grid)):
         continue
     start = (j, i)
     break
+
 
 currPos = start  #(x, y)
 steps = 0
