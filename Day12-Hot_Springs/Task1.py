@@ -1,5 +1,3 @@
-possibleSequences = {}
-
 def computeSequence(initialSequence : list, groups : list) -> int:
     if len(initialSequence) == 0 and len(groups) == 0:
         return 1
