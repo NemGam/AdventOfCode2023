@@ -11,37 +11,8 @@ def check_rows(grid) -> int:
         if grid[i] == grid[i + 1]:
             if check_row_symmetry(grid, i):
                 return i + 1
-    return -1
+    return 0
 
-def check_column_symmetry(line : str, middle_index : int) -> bool:
-    l = min(len(line) - middle_index, middle_index)
-    for i in range(l - 1):
-        if line[middle_index - i] != line[middle_index + 1 + i]:
-            return False
-    return True
-
-
-def get_possible_columns(first_line) -> list[int]:
-    possible_columns = []
-    for j in range(len(first_line) - 1):
-        if first_line[j] == first_line[j + 1]:
-            if check_column_symmetry(first_line, j):
-                possible_columns.append(j)
-    return possible_columns
-
-#Checks columns. Should always return the result, as rows are checked before the call of this function
-#and there is always just one symmetry line 
-def check_columns(grid, possible_columns : list[int]):
-    for i in range(1, len(grid)):
-        for j in range(len(possible_columns) - 1, -1, -1):
-            if not check_row_symmetry(grid[i], possible_columns[j]):
-                possible_columns.pop(j)
-    if len(possible_columns) == 0:
-        raise Exception("It is impossible to get no columns!")
-    else:
-        return possible_columns[0] + 1
-
-        
 
 grids = []
 with open("./input.txt") as f:
@@ -49,19 +20,13 @@ with open("./input.txt") as f:
 
 res = 0
 for line in grids:
-    grid = line.split('\n')
+    grid = line.splitlines()
 
-    c = check_rows(grid)
-    if c != -1:
-        res += c * 100
-        continue
+    res += check_rows(grid) * 100
+    
+    #Transpose
+    grid = list(zip(*grid))
 
-    z = get_possible_columns(grid[0])
-    if len(z) == 1:
-        res += z[0]
-    else:
-        z = check_columns(grid, z)
-        #res += check_columns(grid, z)
-        res += z
+    res += check_rows(grid)
 
-print(res + 1)
+print(res)
