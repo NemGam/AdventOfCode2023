@@ -12,11 +12,13 @@ with open("./input.txt") as f:
 points = []
 curr_pos = (0, 0)
 points.append(curr_pos)
+perimeter = 0
 for direction, length, _ in directions:
     curr_dir = get_direction_from_symbol(direction)
-    for i in range(int(length)):
-        curr_pos = (curr_pos[0] + curr_dir[0], curr_pos[1] + curr_dir[1])
-        points.append(curr_pos)
+    length = int(length)
+    curr_pos = (curr_pos[0] + curr_dir[0] * length, curr_pos[1] + curr_dir[1] * length)
+    points.append(curr_pos)
+    perimeter += length
 
 
 #Calculate inside area with Shoelace formula
@@ -28,5 +30,5 @@ area = abs(area / 2)
 
 #Use Pick's theorem to calculate the number of points inside the loop
 #Learn more: https://en.wikipedia.org/wiki/Pick%27s_theorem
-res = area + len(points) // 2 + 1
+res = area + perimeter // 2 + 1
 print(res)
