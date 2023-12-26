@@ -22,7 +22,6 @@ for direction, length, _ in directions:
 #Calculate inside area with Shoelace formula
 #Learn more: https://en.wikipedia.org/wiki/Shoelace_formula
 area = 0
-#points.append((0, 0))
 for i in range(0, len(points) - 1):
     area += points[i][0] * (points[i+1][1] - points[i-1][1])
 area = abs(area / 2)
