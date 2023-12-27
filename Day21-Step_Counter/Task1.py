@@ -13,15 +13,12 @@ def bfs(grid : list[list[str]], visited : list[int], start : tuple[int, int]):
 
     while len(queue) > 0:
         node = queue.popleft()
-        if grid[node[0]][node[1]] == '#':
-            continue
 
         curr_steps = visited[node[0]][node[1]]
         if curr_steps >= STEP_COUNT:
             continue
         neighbours = get_neighbours(node)
         for neighbour in neighbours:
-            #print(neighbour)
             if grid[neighbour[0]][neighbour[1]] == '#':
                 continue
             if curr_steps + 1 >= visited[neighbour[0]][neighbour[1]]:
@@ -29,8 +26,6 @@ def bfs(grid : list[list[str]], visited : list[int], start : tuple[int, int]):
             
             visited[neighbour[0]][neighbour[1]] = curr_steps + 1
             queue.append(neighbour)
-
-    #print(visited)
 
 
 visited = [[10001 for i in range(COLUMN_COUNT)] for j in range(ROW_COUNT)]
