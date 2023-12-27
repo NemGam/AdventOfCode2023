@@ -45,4 +45,3 @@ for y, line in enumerate(grid):
 bfs(grid, visited, start)
 
 print(sum([sum([1 if x % 2 == 0 else 0 for x in i]) for i in visited]))
-#44 - not right
