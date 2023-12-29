@@ -84,11 +84,13 @@ for i in range(block_count):
     if i not in supports:
         res += 1
         continue
-    free_blocks = 0 #Blocks that I support, but are also supported by someone else
+    
+    #Blocks that I support, but are also supported by someone else.
+    #Should be the same as the number of supported blocks. Else cannot disintegrate.
+    free_blocks = 0 
     for supported_block in supports[i]:
         if len(supported_by[supported_block]) > 1:
             free_blocks += 1
     if free_blocks == len(supports[i]):
         res += 1
 print(res)
-#A - 0, B - 1, C - 2, D - 3, E - 4, F - 5, G - 6
