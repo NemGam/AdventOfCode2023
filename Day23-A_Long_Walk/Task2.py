@@ -1,5 +1,4 @@
 from timeit import default_timer as timer
-from copy import copy
 GRID_SIZE = 141
 
 #Checks if the given point on the grid is an intersection
@@ -42,17 +41,19 @@ def get_edge(grid, nodes, node, start_point : tuple[int, int], visited : set) ->
         visited.add(current_pos)
         steps += 1
 
-
+longest_path = 0
 #Calculates lengths of all the paths from the start to the end
 def solve(dfs_visited : set[int], graph : dict[int, list[tuple[int,int]]], 
-          node : tuple[int, int], length : int, path_lengths : list[int]):
+          node : tuple[int, int], length : int):
+    global longest_path
     if node[0] not in dfs_visited:
         if node[0] == len(graph.keys()) - 1:
-            path_lengths.append(length)
+            if length > longest_path:
+                longest_path = length
             return
         dfs_visited.add(node[0])
         for neighbour in graph[node[0]]:
-            solve(copy(dfs_visited), graph, neighbour, length + neighbour[1], path_lengths)
+            solve(dfs_visited.copy(), graph, neighbour, length + neighbour[1])
 
 start_time = timer()
 
@@ -106,11 +107,10 @@ for node in nodes_coords.keys():
 #Actual path finding
 path_finding_start = timer()
 dfs_visited = set()
-path_lengths = []
-solve(dfs_visited, adj_list, (0, 0), 2, path_lengths)
-path_lengths.sort(reverse=True)
-print(path_lengths[0])
+
+solve(dfs_visited, adj_list, (0, 0), 2)
 end_time = timer()
+print(longest_path)
 print("Time since the beginning:", end_time - start_time)
 print("Time taken by the preprocessing:", path_finding_start - start_time)
 print("Time taken to calculate all paths lengths:", end_time - path_finding_start)
