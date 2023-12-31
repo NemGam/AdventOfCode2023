@@ -45,14 +45,13 @@ def get_edge(grid, nodes, node, start_point : tuple[int, int]) -> tuple[int, int
 
 
 #Calculates lengths of all the paths from the start to the end
-def solve(dfs_visited : set[int], graph : dict[int, list[tuple[int,int]]], 
+def solve(graph : dict[int, list[tuple[int,int]]], 
           node : tuple[int, int], length : int, path_lengths : list[int]):
     if node[0] == len(graph.keys()) - 1:
         path_lengths.append(length)
         return
-    dfs_visited.add(node[0])
     for neighbour in graph[node[0]]:
-        solve(copy(dfs_visited), graph, neighbour, length + neighbour[1], path_lengths)
+        solve(graph, neighbour, length + neighbour[1], path_lengths)
 
 start_time = timer()
 
@@ -98,9 +97,8 @@ for node in nodes_coords.keys():
 
 #Actual path finding
 path_finding_start = timer()
-dfs_visited = set()
 path_lengths = []
-solve(dfs_visited, adj_list, (0, 0), 2, path_lengths)
+solve(adj_list, (0, 0), 2, path_lengths)
 path_lengths.sort(reverse=True)
 print(path_lengths[0])
 end_time = timer()
