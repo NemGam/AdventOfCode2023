@@ -1,5 +1,4 @@
 from timeit import default_timer as timer
-from copy import copy
 GRID_SIZE = 141
 
 #Checks if the given point on the grid is an intersection
